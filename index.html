@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Участники сообщества</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --bg3: #1a1a1a;
+    --border: #222;
+    --accent: #c8ff00;
+    --accent2: #00ffcc;
+    --text: #e8e8e8;
+    --muted: #555;
+    --muted2: #777;
+    --card-bg: #131313;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 48px 40px 32px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(200,255,0,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(22px, 4vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+  .count-badge {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    color: var(--muted2);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .count-badge span { color: var(--accent); font-weight: 600; }
+
+  .refresh-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    font-size: 11px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    padding: 6px 14px;
+    transition: all 0.15s;
+  }
+  .refresh-btn:hover { border-color: #444; color: var(--text); }
+  .refresh-btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* CONTROLS */
+  .controls {
+    padding: 0 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .control-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .control-row:last-child { border-bottom: none; }
+
+  .row-label {
+    font-size: 9px;
+    font-family: 'Unbounded', sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 7px;
+    width: 80px;
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+
+  .row-content {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 180px;
+    max-width: 380px;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px 8px 36px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-wrap input::placeholder { color: var(--muted); }
+  .search-wrap input:focus { border-color: var(--accent); }
+
+  .search-icon {
+    position: absolute;
+    left: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+    pointer-events: none;
+  }
+
+  .chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--muted2);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .chip:hover { border-color: #444; color: var(--text); }
+  .chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    font-weight: 500;
+  }
+
+  .reset-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    font-size: 11px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    padding: 5px 14px;
+    transition: all 0.15s;
+  }
+  .reset-btn:hover { border-color: #444; color: var(--text); }
+
+  /* GRID */
+  .grid-wrap { padding: 28px 40px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .loading {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .spinner {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading p { color: var(--muted2); font-size: 13px; }
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .card:hover { border-color: #333; transform: translateY(-2px); }
+  .card:hover::before { opacity: 1; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .card-meta { flex: 1; min-width: 0; }
+
+  .tg-tag {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tg-tag a { color: var(--text); text-decoration: none; transition: color 0.15s; }
+  .tg-tag a:hover { color: var(--accent); }
+
+  .card-city { font-size: 12px; color: var(--muted2); margin-top: 2px; }
+
+  .age-badge {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-family: 'Unbounded', sans-serif;
+    color: var(--muted2);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .card-section { margin-bottom: 12px; }
+  .card-section:last-child { margin-bottom: 0; }
+
+  .section-label {
+    font-size: 9px;
+    font-family: 'Unbounded', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .tags-wrap { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  .occ-tag {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--muted2);
+  }
+
+  .int-tag {
+    background: rgba(200,255,0,0.06);
+    border: 1px solid rgba(200,255,0,0.15);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    color: rgba(200,255,0,0.7);
+  }
+
+  .useful-text {
+    font-size: 12px;
+    color: var(--muted2);
+    line-height: 1.5;
+    border-left: 2px solid var(--border);
+    padding-left: 10px;
+  }
+
+  .empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 80px 20px;
+  }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+  .empty p { color: var(--muted2); }
+
+  .error-msg {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted2);
+  }
+
+  @media (max-width: 700px) {
+    header, .controls, .grid-wrap { padding-left: 16px; padding-right: 16px; }
+    .grid { grid-template-columns: 1fr; }
+    .control-row { flex-direction: column; gap: 8px; }
+    .row-label { width: auto; padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <h1>УЧАСТНИКИ<br><span>СООБЩЕСТВА</span></h1>
+    <div class="header-right">
+      <div class="count-badge">всего: <span id="total-count">—</span> &nbsp;·&nbsp; показано: <span id="shown-count">—</span></div>
+      <button class="refresh-btn" id="refresh-btn">↻ Обновить</button>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+
+  <div class="control-row">
+    <span class="row-label">Поиск</span>
+    <div class="row-content">
+      <div class="search-wrap">
+        <span class="search-icon">@</span>
+        <input type="text" id="search" placeholder="Найти по тегу Telegram...">
+      </div>
+    </div>
+  </div>
+
+  <div class="control-row">
+    <span class="row-label">Возраст</span>
+    <div class="row-content" id="age-filters">
+      <span class="chip" data-filter="age" data-val="12-16">12–16</span>
+      <span class="chip" data-filter="age" data-val="17-21">17–21</span>
+      <span class="chip" data-filter="age" data-val="21-24">21–24</span>
+      <span class="chip" data-filter="age" data-val="25+">25+</span>
+    </div>
+  </div>
+
+  <div class="control-row">
+    <span class="row-label">Город</span>
+    <div class="row-content" id="city-filters">
+      <span style="font-size:12px; color:var(--muted)">загрузка...</span>
+    </div>
+  </div>
+
+  <div class="control-row">
+    <span class="row-label">Занятость</span>
+    <div class="row-content" id="occ-filters">
+      <span class="chip" data-filter="occ" data-val="Учёба">Учёба</span>
+      <span class="chip" data-filter="occ" data-val="Работа">Работа</span>
+      <span class="chip" data-filter="occ" data-val="Бизнес">Бизнес</span>
+      <span class="chip" data-filter="occ" data-val="Спорт">Спорт</span>
+      <span class="chip" data-filter="occ" data-val="Фриланс">Фриланс</span>
+    </div>
+  </div>
+
+  <div class="control-row">
+    <span class="row-label">Интересы</span>
+    <div class="row-content" id="interest-filters">
+      <span class="chip" data-filter="interest" data-val="Спорт">Спорт</span>
+      <span class="chip" data-filter="interest" data-val="Питание">Питание</span>
+      <span class="chip" data-filter="interest" data-val="Продажи">Продажи</span>
+      <span class="chip" data-filter="interest" data-val="Маркетинг">Маркетинг</span>
+      <span class="chip" data-filter="interest" data-val="Дизайн">Дизайн</span>
+      <span class="chip" data-filter="interest" data-val="Бизнес">Бизнес</span>
+      <span class="chip" data-filter="interest" data-val="Дисциплина">Дисциплина</span>
+      <span class="chip" data-filter="interest" data-val="Саморазвитие">Саморазвитие</span>
+      <span class="chip" data-filter="interest" data-val="Контент">Контент</span>
+      <span class="chip" data-filter="interest" data-val="Программирование">Программирование</span>
+    </div>
+  </div>
+
+  <div class="control-row" style="padding-top:10px; padding-bottom:14px;">
+    <span class="row-label"></span>
+    <div class="row-content">
+      <button class="reset-btn" id="reset-btn">✕ Сбросить фильтры</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="grid-wrap">
+  <div class="grid" id="grid">
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Загружаем участников...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEKwO7xV88iLhI4jS_fcBvlxfLiOUS1w9bpMoHgnq0Bp2CIzpL7wug8xD0Ph29zS4e98pkqu3_qXA_/pub?gid=1658905638&single=true&output=csv';
+
+let MEMBERS = [];
+let activeFilters = { age: null, city: null, occ: null, interest: null };
+let searchQuery = '';
+
+// ─── CSV PARSER ───
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  if (lines.length < 2) return [];
+
+  // Парсим строку с учётом кавычек (Google Sheets оборачивает поля с запятыми)
+  function parseLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (inQuotes && line[i+1] === '"') { current += '"'; i++; }
+        else inQuotes = !inQuotes;
+      } else if (ch === ',' && !inQuotes) {
+        result.push(current.trim());
+        current = '';
+      } else {
+        current += ch;
+      }
+    }
+    result.push(current.trim());
+    return result;
+  }
+
+  const headers = parseLine(lines[0]);
+  const members = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const cols = parseLine(lines[i]);
+    if (cols.every(c => !c)) continue; // пустая строка
+
+    // Колонки: 0=время, 1=тег, 2=возраст, 3=город, 4=занятость, 5=интересы, 6=полезен
+    const tg    = cols[1] || '';
+    const age   = cols[2] || '';
+    const city  = cols[3] || '';
+    const occ   = cols[4] || '';
+    const ints  = cols[5] || '';
+    const useful = cols[6] || '';
+
+    if (!tg) continue;
+
+    // Занятость и интересы — разделены запятыми или точкой с запятой
+    const occupation = occ.split(/[,;]/).map(s => s.trim()).filter(Boolean);
+    const interests  = ints.split(/[,;]/).map(s => s.trim()).filter(Boolean);
+
+    // Нормализуем тег
+    const tgClean = tg.startsWith('@') ? tg : '@' + tg;
+
+    members.push({ tg: tgClean, age, city, occupation, interests, useful });
+  }
+
+  return members;
+}
+
+// ─── ЗАГРУЗКА ───
+async function loadData() {
+  document.getElementById('refresh-btn').disabled = true;
+  document.getElementById('refresh-btn').textContent = '↻ Загрузка...';
+  document.getElementById('grid').innerHTML = `<div class="loading"><div class="spinner"></div><p>Загружаем участников...</p></div>`;
+
+  try {
+    const resp = await fetch(CSV_URL + '&t=' + Date.now()); // cache-bust
+    if (!resp.ok) throw new Error('Ошибка сети');
+    const text = await resp.text();
+    MEMBERS = parseCSV(text);
+    document.getElementById('total-count').textContent = MEMBERS.length;
+    buildCityFilters();
+    applyFilters();
+  } catch (e) {
+    document.getElementById('grid').innerHTML = `<div class="error-msg">⚠️ Не удалось загрузить данные.<br><small style="color:var(--muted)">${e.message}</small></div>`;
+  }
+
+  document.getElementById('refresh-btn').disabled = false;
+  document.getElementById('refresh-btn').textContent = '↻ Обновить';
+}
+
+// ─── ГОРОДА (динамически из данных) ───
+function buildCityFilters() {
+  const cities = [...new Set(MEMBERS.map(m => m.city).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru'));
+  const container = document.getElementById('city-filters');
+
+  if (cities.length === 0) {
+    container.innerHTML = '<span style="font-size:12px; color:var(--muted)">нет данных</span>';
+    return;
+  }
+
+  container.innerHTML = cities
+    .map(c => `<span class="chip" data-filter="city" data-val="${c}">${c}</span>`)
+    .join('');
+
+  container.querySelectorAll('.chip').forEach(chip =>
+    chip.addEventListener('click', () => handleChip(chip))
+  );
+}
+
+// ─── ЧИПЫ ───
+function handleChip(chip) {
+  const type = chip.dataset.filter;
+  const val = chip.dataset.val;
+  if (activeFilters[type] === val) {
+    activeFilters[type] = null;
+    chip.classList.remove('active');
+  } else {
+    document.querySelectorAll(`.chip[data-filter="${type}"]`).forEach(c => c.classList.remove('active'));
+    activeFilters[type] = val;
+    chip.classList.add('active');
+  }
+  applyFilters();
+}
+
+document.querySelectorAll('.chip[data-filter]').forEach(chip =>
+  chip.addEventListener('click', () => handleChip(chip))
+);
+
+// ─── ФИЛЬТРАЦИЯ ───
+function applyFilters() {
+  let result = MEMBERS;
+
+  if (searchQuery) {
+    result = result.filter(m => m.tg.toLowerCase().includes(searchQuery.toLowerCase()));
+  }
+  if (activeFilters.age) {
+    result = result.filter(m => m.age === activeFilters.age);
+  }
+  if (activeFilters.city) {
+    result = result.filter(m => m.city === activeFilters.city);
+  }
+  if (activeFilters.occ) {
+    // проверяем вхождение (занятость может содержать подстроку)
+    result = result.filter(m =>
+      m.occupation.some(o => o.toLowerCase().includes(activeFilters.occ.toLowerCase()))
+    );
+  }
+  if (activeFilters.interest) {
+    result = result.filter(m =>
+      m.interests.some(i => i.toLowerCase().includes(activeFilters.interest.toLowerCase()))
+    );
+  }
+
+  document.getElementById('shown-count').textContent = result.length;
+  const grid = document.getElementById('grid');
+
+  if (result.length === 0) {
+    grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><p>Никого не нашли. Попробуй изменить фильтры.</p></div>`;
+  } else {
+    grid.innerHTML = result.map(renderCard).join('');
+  }
+}
+
+// ─── КАРТОЧКА ───
+function getInitials(tag) {
+  return tag.replace('@', '').slice(0, 2).toUpperCase();
+}
+
+function renderCard(m) {
+  const tgHandle = m.tg.replace('@', '');
+  const cityStr = m.city ? `📍 ${m.city}` : '';
+  const occHtml = m.occupation.length
+    ? m.occupation.map(o => `<span class="occ-tag">${o}</span>`).join('')
+    : '<span style="color:var(--muted);font-size:12px">—</span>';
+  const intHtml = m.interests.length
+    ? m.interests.map(i => `<span class="int-tag">${i}</span>`).join('')
+    : '<span style="color:var(--muted);font-size:12px">—</span>';
+
+  return `
+    <div class="card">
+      <div class="card-header">
+        <div class="avatar">${getInitials(m.tg)}</div>
+        <div class="card-meta">
+          <div class="tg-tag"><a href="https://t.me/${tgHandle}" target="_blank">${m.tg}</a></div>
+          ${cityStr ? `<div class="card-city">${cityStr}</div>` : ''}
+        </div>
+        ${m.age ? `<div class="age-badge">${m.age}</div>` : ''}
+      </div>
+
+      <div class="card-section">
+        <div class="section-label">Занятость</div>
+        <div class="tags-wrap">${occHtml}</div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-label">Интересы</div>
+        <div class="tags-wrap">${intHtml}</div>
+      </div>
+
+      ${m.useful ? `
+      <div class="card-section">
+        <div class="section-label">Чем могу помочь</div>
+        <div class="useful-text">${m.useful}</div>
+      </div>` : ''}
+    </div>`;
+}
+
+// ─── СОБЫТИЯ ───
+document.getElementById('search').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  applyFilters();
+});
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+  activeFilters = { age: null, city: null, occ: null, interest: null };
+  searchQuery = '';
+  document.getElementById('search').value = '';
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  applyFilters();
+});
+
+document.getElementById('refresh-btn').addEventListener('click', loadData);
+
+// ─── СТАРТ ───
+loadData();
+</script>
+</body>
+</html>
