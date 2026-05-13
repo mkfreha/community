@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Участники сообщества</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
   :root {
     --bg: #0a0a0a;
@@ -83,7 +83,7 @@
     background: none;
     border: 1px solid var(--border);
     border-radius: 20px;
-    color: var(--muted);
+    color: var(--muted2);
     font-size: 11px;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
@@ -93,7 +93,6 @@
   .refresh-btn:hover { border-color: #444; color: var(--text); }
   .refresh-btn:disabled { opacity: 0.4; cursor: default; }
 
-  /* CONTROLS */
   .controls {
     padding: 0 40px;
     border-bottom: 1px solid var(--border);
@@ -115,7 +114,7 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
-    padding-top: 7px;
+    padding-top: 9px;
     width: 80px;
     min-width: 80px;
     flex-shrink: 0;
@@ -126,7 +125,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
   }
 
   .search-wrap {
@@ -141,10 +140,10 @@
     background: var(--bg3);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 8px 14px 8px 36px;
+    padding: 10px 14px 10px 38px;
     color: var(--text);
     font-family: 'Inter', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     outline: none;
     transition: border-color 0.2s;
   }
@@ -157,51 +156,51 @@
     left: 12px; top: 50%;
     transform: translateY(-50%);
     color: var(--muted);
-    font-size: 14px;
+    font-size: 15px;
     pointer-events: none;
   }
 
   .chip {
     background: var(--bg3);
-    border: 1px solid var(--border);
+    border: 1px solid #333;
     border-radius: 20px;
-    padding: 5px 14px;
-    font-size: 12px;
-    color: var(--muted2);
+    padding: 7px 16px;
+    font-size: 13px;
+    color: #aaa;
     cursor: pointer;
     transition: all 0.15s;
     user-select: none;
     white-space: nowrap;
+    font-weight: 500;
   }
 
-  .chip:hover { border-color: #444; color: var(--text); }
+  .chip:hover { border-color: #555; color: var(--text); }
   .chip.active {
     background: var(--accent);
     border-color: var(--accent);
     color: #000;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .reset-btn {
     background: none;
     border: 1px solid var(--border);
     border-radius: 20px;
-    color: var(--muted);
-    font-size: 11px;
+    color: var(--muted2);
+    font-size: 12px;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
-    padding: 5px 14px;
+    padding: 7px 16px;
     transition: all 0.15s;
   }
   .reset-btn:hover { border-color: #444; color: var(--text); }
 
-  /* GRID */
-  .grid-wrap { padding: 28px 40px; }
+  .grid-wrap { padding: 32px 40px; }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
   }
 
   .loading {
@@ -220,15 +219,13 @@
   }
 
   @keyframes spin { to { transform: rotate(360deg); } }
-
   .loading p { color: var(--muted2); font-size: 13px; }
 
-  /* CARD */
   .card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 22px;
+    border-radius: 16px;
+    padding: 28px;
     transition: border-color 0.2s, transform 0.2s;
     position: relative;
     overflow: hidden;
@@ -244,26 +241,26 @@
     transition: opacity 0.2s;
   }
 
-  .card:hover { border-color: #333; transform: translateY(-2px); }
+  .card:hover { border-color: #2a2a2a; transform: translateY(-3px); }
   .card:hover::before { opacity: 1; }
 
   .card-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 16px;
+    gap: 14px;
+    margin-bottom: 22px;
   }
 
   .avatar {
-    width: 42px; height: 42px;
+    width: 52px; height: 52px;
     border-radius: 50%;
     background: var(--bg3);
     border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center;
     font-family: 'Unbounded', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 700;
     color: var(--accent);
     flex-shrink: 0;
   }
@@ -272,7 +269,7 @@
 
   .tg-tag {
     font-family: 'Unbounded', sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: -0.02em;
     white-space: nowrap;
@@ -283,58 +280,62 @@
   .tg-tag a { color: var(--text); text-decoration: none; transition: color 0.15s; }
   .tg-tag a:hover { color: var(--accent); }
 
-  .card-city { font-size: 12px; color: var(--muted2); margin-top: 2px; }
+  .card-city { font-size: 13px; color: var(--muted2); margin-top: 5px; }
 
   .age-badge {
     background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 3px 8px;
-    font-size: 11px;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 12px;
     font-family: 'Unbounded', sans-serif;
-    color: var(--muted2);
+    color: #888;
     flex-shrink: 0;
     white-space: nowrap;
   }
 
-  .card-section { margin-bottom: 12px; }
+  .card-section { margin-bottom: 18px; }
   .card-section:last-child { margin-bottom: 0; }
 
   .section-label {
-    font-size: 9px;
+    font-size: 10px;
     font-family: 'Unbounded', sans-serif;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 6px;
+    margin-bottom: 10px;
   }
 
-  .tags-wrap { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
 
   .occ-tag {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 3px 10px;
-    font-size: 11px;
-    color: var(--muted2);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #ccc;
   }
 
   .int-tag {
-    background: rgba(200,255,0,0.06);
-    border: 1px solid rgba(200,255,0,0.15);
-    border-radius: 4px;
-    padding: 2px 8px;
-    font-size: 11px;
-    color: rgba(200,255,0,0.7);
+    background: rgba(200,255,0,0.1);
+    border: 1px solid rgba(200,255,0,0.3);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #c8ff00;
   }
 
-  .useful-text {
-    font-size: 12px;
-    color: var(--muted2);
-    line-height: 1.5;
-    border-left: 2px solid var(--border);
-    padding-left: 10px;
+  .skill-tag {
+    background: rgba(0,255,204,0.1);
+    border: 1px solid rgba(0,255,204,0.3);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #00ffcc;
   }
 
   .empty {
@@ -343,7 +344,7 @@
     padding: 80px 20px;
   }
   .empty-icon { font-size: 40px; margin-bottom: 12px; }
-  .empty p { color: var(--muted2); }
+  .empty p { color: var(--muted2); font-size: 15px; }
 
   .error-msg {
     grid-column: 1/-1;
@@ -450,15 +451,13 @@
 const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEKwO7xV88iLhI4jS_fcBvlxfLiOUS1w9bpMoHgnq0Bp2CIzpL7wug8xD0Ph29zS4e98pkqu3_qXA_/pub?gid=1658905638&single=true&output=csv';
 
 let MEMBERS = [];
-let activeFilters = { age: null, city: null, occ: null, interest: null };
+let activeFilters = { age: [], city: [], occ: [], interest: [] };
 let searchQuery = '';
 
-// ─── CSV PARSER ───
 function parseCSV(text) {
   const lines = text.trim().split('\n');
   if (lines.length < 2) return [];
 
-  // Парсим строку с учётом кавычек (Google Sheets оборачивает поля с запятыми)
   function parseLine(line) {
     const result = [];
     let current = '';
@@ -479,44 +478,43 @@ function parseCSV(text) {
     return result;
   }
 
-  const headers = parseLine(lines[0]);
   const members = [];
-
   for (let i = 1; i < lines.length; i++) {
     const cols = parseLine(lines[i]);
-    if (cols.every(c => !c)) continue; // пустая строка
+    if (cols.every(c => !c)) continue;
 
-    // Колонки: 0=время, 1=тег, 2=возраст, 3=город, 4=занятость, 5=интересы, 6=полезен
-    const tg    = cols[1] || '';
-    const age   = cols[2] || '';
-    const city  = cols[3] || '';
-    const occ   = cols[4] || '';
-    const ints  = cols[5] || '';
-    const useful = cols[6] || '';
+    // 0=время, 1=тег, 2=возраст, 3=город, 4=занятость, 5=интересы, 6=навыки
+    const tg     = (cols[1] || '').trim();
+    const age    = (cols[2] || '').trim();
+    const city   = (cols[3] || '').trim();
+    const occ    = (cols[4] || '').trim();
+    const ints   = (cols[5] || '').trim();
+    const useful = (cols[6] || '').trim();
 
     if (!tg) continue;
 
-    // Занятость и интересы — разделены запятыми или точкой с запятой
     const occupation = occ.split(/[,;]/).map(s => s.trim()).filter(Boolean);
     const interests  = ints.split(/[,;]/).map(s => s.trim()).filter(Boolean);
+    const skills     = useful.split(/[,;]/).map(s => s.trim()).filter(Boolean);
+    const tgClean    = tg.startsWith('@') ? tg : '@' + tg;
 
-    // Нормализуем тег
-    const tgClean = tg.startsWith('@') ? tg : '@' + tg;
-
-    members.push({ tg: tgClean, age, city, occupation, interests, useful });
+    members.push({ tg: tgClean, age, city, occupation, interests, skills, useful });
   }
 
-  return members;
+  // Убираем дубли по тегу — оставляем последнюю запись
+  const seen = new Map();
+  for (const m of members) seen.set(m.tg.toLowerCase(), m);
+  return [...seen.values()];
 }
 
-// ─── ЗАГРУЗКА ───
 async function loadData() {
-  document.getElementById('refresh-btn').disabled = true;
-  document.getElementById('refresh-btn').textContent = '↻ Загрузка...';
+  const btn = document.getElementById('refresh-btn');
+  btn.disabled = true;
+  btn.textContent = '↻ Загрузка...';
   document.getElementById('grid').innerHTML = `<div class="loading"><div class="spinner"></div><p>Загружаем участников...</p></div>`;
 
   try {
-    const resp = await fetch(CSV_URL + '&t=' + Date.now()); // cache-bust
+    const resp = await fetch(CSV_URL + '&t=' + Date.now());
     if (!resp.ok) throw new Error('Ошибка сети');
     const text = await resp.text();
     MEMBERS = parseCSV(text);
@@ -525,42 +523,45 @@ async function loadData() {
     applyFilters();
   } catch (e) {
     document.getElementById('grid').innerHTML = `<div class="error-msg">⚠️ Не удалось загрузить данные.<br><small style="color:var(--muted)">${e.message}</small></div>`;
+    document.getElementById('total-count').textContent = '—';
+    document.getElementById('shown-count').textContent = '—';
   }
 
-  document.getElementById('refresh-btn').disabled = false;
-  document.getElementById('refresh-btn').textContent = '↻ Обновить';
+  btn.disabled = false;
+  btn.textContent = '↻ Обновить';
 }
 
-// ─── ГОРОДА (динамически из данных) ───
 function buildCityFilters() {
   const cities = [...new Set(MEMBERS.map(m => m.city).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru'));
   const container = document.getElementById('city-filters');
-
-  if (cities.length === 0) {
-    container.innerHTML = '<span style="font-size:12px; color:var(--muted)">нет данных</span>';
+  if (!cities.length) {
+    container.innerHTML = '<span style="font-size:12px;color:var(--muted)">пока никого нет</span>';
     return;
   }
-
-  container.innerHTML = cities
-    .map(c => `<span class="chip" data-filter="city" data-val="${c}">${c}</span>`)
-    .join('');
-
+  container.innerHTML = cities.map(c =>
+    `<span class="chip" data-filter="city" data-val="${c}">${c}</span>`
+  ).join('');
   container.querySelectorAll('.chip').forEach(chip =>
     chip.addEventListener('click', () => handleChip(chip))
   );
 }
 
-// ─── ЧИПЫ ───
 function handleChip(chip) {
   const type = chip.dataset.filter;
   const val = chip.dataset.val;
-  if (activeFilters[type] === val) {
-    activeFilters[type] = null;
-    chip.classList.remove('active');
+  if (type === 'age' || type === 'city') {
+    if (activeFilters[type][0] === val) {
+      activeFilters[type] = [];
+      chip.classList.remove('active');
+    } else {
+      document.querySelectorAll(`.chip[data-filter="${type}"]`).forEach(c => c.classList.remove('active'));
+      activeFilters[type] = [val];
+      chip.classList.add('active');
+    }
   } else {
-    document.querySelectorAll(`.chip[data-filter="${type}"]`).forEach(c => c.classList.remove('active'));
-    activeFilters[type] = val;
-    chip.classList.add('active');
+    const idx = activeFilters[type].indexOf(val);
+    if (idx > -1) { activeFilters[type].splice(idx, 1); chip.classList.remove('active'); }
+    else { activeFilters[type].push(val); chip.classList.add('active'); }
   }
   applyFilters();
 }
@@ -569,55 +570,32 @@ document.querySelectorAll('.chip[data-filter]').forEach(chip =>
   chip.addEventListener('click', () => handleChip(chip))
 );
 
-// ─── ФИЛЬТРАЦИЯ ───
 function applyFilters() {
   let result = MEMBERS;
-
-  if (searchQuery) {
-    result = result.filter(m => m.tg.toLowerCase().includes(searchQuery.toLowerCase()));
-  }
-  if (activeFilters.age) {
-    result = result.filter(m => m.age === activeFilters.age);
-  }
-  if (activeFilters.city) {
-    result = result.filter(m => m.city === activeFilters.city);
-  }
-  if (activeFilters.occ) {
-    // проверяем вхождение (занятость может содержать подстроку)
-    result = result.filter(m =>
-      m.occupation.some(o => o.toLowerCase().includes(activeFilters.occ.toLowerCase()))
-    );
-  }
-  if (activeFilters.interest) {
-    result = result.filter(m =>
-      m.interests.some(i => i.toLowerCase().includes(activeFilters.interest.toLowerCase()))
-    );
-  }
+  if (searchQuery) result = result.filter(m => m.tg.toLowerCase().includes(searchQuery.toLowerCase()));
+  if (activeFilters.age.length)      result = result.filter(m => activeFilters.age.includes(m.age));
+  if (activeFilters.city.length)     result = result.filter(m => activeFilters.city.includes(m.city));
+  if (activeFilters.occ.length)      result = result.filter(m => activeFilters.occ.some(f => m.occupation.some(o => o.toLowerCase().includes(f.toLowerCase()))));
+  if (activeFilters.interest.length) result = result.filter(m => activeFilters.interest.some(f => m.interests.some(i => i.toLowerCase().includes(f.toLowerCase()))));
 
   document.getElementById('shown-count').textContent = result.length;
   const grid = document.getElementById('grid');
-
-  if (result.length === 0) {
-    grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><p>Никого не нашли. Попробуй изменить фильтры.</p></div>`;
-  } else {
-    grid.innerHTML = result.map(renderCard).join('');
-  }
+  grid.innerHTML = result.length
+    ? result.map(renderCard).join('')
+    : `<div class="empty"><div class="empty-icon">🔍</div><p>Никого не нашли. Попробуй изменить фильтры.</p></div>`;
 }
 
-// ─── КАРТОЧКА ───
 function getInitials(tag) {
   return tag.replace('@', '').slice(0, 2).toUpperCase();
 }
 
 function renderCard(m) {
   const tgHandle = m.tg.replace('@', '');
-  const cityStr = m.city ? `📍 ${m.city}` : '';
-  const occHtml = m.occupation.length
-    ? m.occupation.map(o => `<span class="occ-tag">${o}</span>`).join('')
-    : '<span style="color:var(--muted);font-size:12px">—</span>';
-  const intHtml = m.interests.length
-    ? m.interests.map(i => `<span class="int-tag">${i}</span>`).join('')
-    : '<span style="color:var(--muted);font-size:12px">—</span>';
+  const occHtml  = m.occupation.map(o => `<span class="occ-tag">${o}</span>`).join('') || '<span style="color:var(--muted)">—</span>';
+  const intHtml  = m.interests.map(i => `<span class="int-tag">${i}</span>`).join('') || '<span style="color:var(--muted)">—</span>';
+  const skillHtml = m.skills.length
+    ? m.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')
+    : m.useful ? `<span class="skill-tag">${m.useful}</span>` : '';
 
   return `
     <div class="card">
@@ -625,37 +603,33 @@ function renderCard(m) {
         <div class="avatar">${getInitials(m.tg)}</div>
         <div class="card-meta">
           <div class="tg-tag"><a href="https://t.me/${tgHandle}" target="_blank">${m.tg}</a></div>
-          ${cityStr ? `<div class="card-city">${cityStr}</div>` : ''}
+          ${m.city ? `<div class="card-city">📍 ${m.city}</div>` : ''}
         </div>
         ${m.age ? `<div class="age-badge">${m.age}</div>` : ''}
       </div>
-
       <div class="card-section">
         <div class="section-label">Занятость</div>
         <div class="tags-wrap">${occHtml}</div>
       </div>
-
       <div class="card-section">
         <div class="section-label">Интересы</div>
         <div class="tags-wrap">${intHtml}</div>
       </div>
-
-      ${m.useful ? `
+      ${skillHtml ? `
       <div class="card-section">
-        <div class="section-label">Чем могу помочь</div>
-        <div class="useful-text">${m.useful}</div>
+        <div class="section-label">Навыки</div>
+        <div class="tags-wrap">${skillHtml}</div>
       </div>` : ''}
     </div>`;
 }
 
-// ─── СОБЫТИЯ ───
 document.getElementById('search').addEventListener('input', e => {
   searchQuery = e.target.value.trim();
   applyFilters();
 });
 
 document.getElementById('reset-btn').addEventListener('click', () => {
-  activeFilters = { age: null, city: null, occ: null, interest: null };
+  activeFilters = { age: [], city: [], occ: [], interest: [] };
   searchQuery = '';
   document.getElementById('search').value = '';
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
@@ -664,7 +638,6 @@ document.getElementById('reset-btn').addEventListener('click', () => {
 
 document.getElementById('refresh-btn').addEventListener('click', loadData);
 
-// ─── СТАРТ ───
 loadData();
 </script>
 </body>
